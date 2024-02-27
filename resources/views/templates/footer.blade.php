@@ -90,7 +90,160 @@
 <!-- <script src="{{ asset('/assets/js/theme-customizer/customizer.js') }}"></script> -->
 <!-- login js-->
 <!-- Plugin used-->
+<script src="../assets/js/range-slider/ion.rangeSlider.min.js"></script>
+<script src="../assets/js/range-slider/rangeslider-script.js"></script>
+<script src="../assets/js/tooltip-init.js"></script>
+<!-- Plugins JS start-->
+<script src="../assets/js/timeline/timeline-v-2/jquery.timeliny.min.js"></script>
+<script src="../assets/js/timeline/timeline-v-2/timeline-v-2-custom.js"></script>
+<!-- Plugins JS Ends-->
 
+{{-- normal functions --}}
+<script>
+    function productonchange(event){
+        const faqs = document.getElementsByClassName('faqs');
+        const selected_faqs = document.getElementsByClassName(event.target.value);
+        for (let i = 0; i < faqs.length; i++) {
+            faqs[i].style.display = 'none';
+        }
+        for (let i = 0; i < selected_faqs.length; i++) {
+            selected_faqs[i].style.display = '';
+        }
+    }
+
+    function progresssliderchange(event){
+        $slider = document.getElementById("slider");
+        $output = document.getElementById("output");
+        output.innerHTML = slider.value;
+    }
+    function statusOnChange(event){
+        $canceled_cmt_txtfield = document.getElementById('canceled_cmt');
+        $duration = document.getElementById('duration');
+        if(event.target.value == 6){
+            $canceled_cmt_txtfield.style.display = '';
+        }else if(event.target.value == 5){
+            $duration.style.display = '';
+        }else{
+            $canceled_cmt_txtfield.style.display = 'none';
+            $duration.style.display = 'none';
+        }
+    }
+</script>
+
+{{-- ajax functions --}}
+<script>
+    function toggleDarkMode(event,is_darked){
+        $.ajax({
+            headers:{
+                'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+            },
+            type:"post",
+            data: jQuery.param({is_darked:true}),
+            url: "{{ route('toggledarkmode')}}",
+            success: function(response){
+                console.log(is_darked);
+                console.log(response.is_darked);
+            }
+        });
+    }
+</script>
+
+{{-- apex chart --}}
+<script type="text/javascript">
+    // basic bar chart
+    var options2 = {
+            chart: {
+                height: 350,
+                type: 'bar',
+                toolbar: {
+                    show: true
+                }
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: true,
+                    distributed: true,
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            series: [{
+                data: [{{ isset($order) ? $order : 0 }},
+                {{ isset($pending) ? $pending : 0 }},
+                {{ isset($running) ? $running : 0 }},
+                {{ isset($smooth) ? $smooth : 0 }},
+                {{ isset($done) ? $done : 0 }},
+                {{ isset($cancel) ? $cancel : 0 }},
+                ]
+            }],
+            xaxis: {
+                categories: ['Order',
+            'Pending',
+            'Running',
+            'Smooth',
+            'Done',
+            'Cancel'
+                ],
+            },
+            fill: {
+                colors: [vihoAdminConfig.primary, vihoAdminConfig.secondary,'#E1C635', '#717171','#1B4C43',  '#D22D3D',
+            ]
+            },
+        }
+
+        var chart2 = new ApexCharts(
+            document.querySelector("#basic-bar"),
+            options2
+        );
+
+        chart2.render();
+
+    // pie chart
+    var options8 = {
+        chart: {
+            width: 500,
+            type: 'pie',
+            toolbar: {
+                show: true
+            }
+        },
+        labels: [
+            'Order',
+            'Pending',
+            'Running',
+            'Smooth',
+            'Done',
+            'Cancel'
+        ],
+        series: [{{ isset($order) ? $order : 0 }},
+                {{ isset($pending) ? $pending : 0 }},
+                {{ isset($running) ? $running : 0 }},
+                {{ isset($smooth) ? $smooth : 0 }},
+                {{ isset($done) ? $done : 0 }},
+                {{ isset($cancel) ? $cancel : 0 }},
+        ],
+        responsive: [{
+            breakpoint: 1200,
+            options: {
+                chart: {
+                    width: 150
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }],
+        colors: [vihoAdminConfig.primary, vihoAdminConfig.secondary,'#E1C635', '#717171','#1B4C43',  '#D22D3D',
+            ]
+    }
+
+    var chart8 = new ApexCharts(
+        document.querySelector("#piechart"),
+        options8
+    );
+    chart8.render();
+</script>
 
 </body>
 

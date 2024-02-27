@@ -15,7 +15,9 @@ class CreatePricesTable extends Migration
     {
         Schema::create('prices', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->nullable();
+            $table->foreignId('product_id')
+                    ->references('id')->on('products')
+                    ->onDelete('cascade')->nullable();
             $table->string('change_request_price')->nullable();
             $table->string('service_ticket_price')->nullable();
             $table->timestamps();

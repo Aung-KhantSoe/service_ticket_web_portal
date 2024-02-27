@@ -11,7 +11,7 @@
           <div class="col-sm-6">
             <h3>{{$caption??'Edit Profile'}}</h3>
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item"><a href="{{asset('/')}}">Home</a></li>
               <li class="breadcrumb-item">Users</li>
               <li class="breadcrumb-item active">{{$caption??'Edit Profile'}}</li>
             </ol>
@@ -103,7 +103,7 @@
                       <textarea class="form-control" type="text" placeholder="Home Address" name="address" rows="5">{{$user->address}}</textarea>
                     </div>
                   </div>
-                  
+
                 </div>
               </div>
               <div class="card-footer text-end">

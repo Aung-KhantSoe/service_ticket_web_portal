@@ -16,7 +16,9 @@ class CreateFaqsTable extends Migration
         Schema::create('faqs', function (Blueprint $table) {
             $table->id();
             $table->text('question');
-            $table->foreignId('product_id')->nullable();
+            $table->foreignId('product_id')
+                    ->references('id')->on('products')
+                    ->onDelete('cascade')->nullable();
             $table->timestamps();
         });
     }

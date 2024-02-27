@@ -20,9 +20,11 @@ class CreateTasksTable extends Migration
             $table->foreignId('faq_id')->nullable();
             $table->text('description')->nullable();
             $table->string('type')->nullable();
-            $table->string('status')->nullable();
+            $table->foreignId('status_id');
             $table->foreignId('dev_id')->nullable();
             $table->integer('duration')->nullable();
+            $table->integer('progress')->nullable();
+            $table->integer('cost')->nullable();
             $table->string('estimated_complete_time')->nullable();
             $table->text('canceled_cmt')->nullable();
             $table->text('service_warranty_start_date')->nullable();

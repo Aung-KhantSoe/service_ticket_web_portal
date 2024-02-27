@@ -1,4 +1,7 @@
-<body>
+@php
+    $is_darked = session('is_dark');
+@endphp
+<body @if($is_darked == true) class="dark-only" @endif>
   <!-- Loader starts-->
   <div class="loader-wrapper">
     <div class="theme-loader">
@@ -31,7 +34,7 @@
           <ul class="nav-menus">
             <li><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()"><i data-feather="maximize"></i></a></li>
             <li>
-              <div class="mode"><i class="fa fa-moon-o"></i></div>
+              <div class="mode"><i onclick="toggleDarkMode(event,{{ $is_darked ? 'true' : 'false' }})" class="fa fa-moon-o"></i></div>
             </li>
             <li class="onhover-dropdown p-0">
               <form action="{{route('logout')}}" method="post">
@@ -86,8 +89,8 @@
                 </li>
                 <li class="dropdown"><a class="nav-link menu-title" href="{{asset('/products')}}"><i data-feather="package"></i><span>Products</span></a>
                 </li>
-                <li class="dropdown"><a class="nav-link menu-title" href="{{asset('/prices')}}"><i data-feather="dollar-sign"></i><span>Prices</span></a>
-                </li>
+                {{-- <li class="dropdown"><a class="nav-link menu-title" href="{{asset('/prices')}}"><i data-feather="dollar-sign"></i><span>Prices</span></a>
+                </li> --}}
                 <li class="dropdown"><a class="nav-link menu-title" href="{{asset('/faqs')}}"><i data-feather="help-circle"></i><span>FAQ</span></a>
                 </li>
                 @endif

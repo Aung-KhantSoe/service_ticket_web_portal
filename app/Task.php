@@ -27,4 +27,12 @@ class Task extends Model
     {
         return $this->belongsTo('App\Faq');
     }
+    public function status()
+    {
+        return $this->belongsTo('App\StatusConfig');
+    }
+    public function timelog()
+    {
+        return $this->hasOne('App\TimeLog');
+    }
 }

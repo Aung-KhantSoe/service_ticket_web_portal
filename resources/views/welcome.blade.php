@@ -11,15 +11,88 @@
         <div class="row">
           <div class="col-sm-6">
             <h3>Dashboard</h3>
-            
+
           </div>
-          
+
         </div>
       </div>
     </div>
     <!-- Container-fluid starts-->
     <div class="container-fluid support-ticket">
       <div class="row">
+        @if (Auth::user()->role == 'admin')
+            <div class="col-sm-6">
+                <div class="card">
+                <div class="card-header pb-0">
+                    <h5>Pie Chart </h5>
+                </div>
+                <div class="card-body apex-chart" >
+                    <div id="piechart"></div>
+                </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                <div class="card-header pb-0">
+                    <h5>Bar chart</h5>
+                </div>
+                <div class="card-body">
+                    <div id="basic-bar"></div>
+                </div>
+                <!-- <div class="card-footer">
+                    <div class="row">
+                    @if(isset($draft))
+                    <form action="{{asset("/reportdetail")}}" method="POST">
+                    @csrf
+                    <input type="hidden" name="results" value="{{$results}}">
+                    <input type="hidden" name="status" value="draft">
+                    <button class="btn btn-primary mb-3">Draft</button>
+                    </form>
+                    @endif
+                    @if(isset($pending))
+                    <a class="btn btn-primary mb-3" >Pending</a>
+                    @endif
+                    @if(isset($inprogress))
+                    <a class="btn btn-primary mb-3" >Inprogress</a>
+                    @endif
+                    @if(isset($accept))
+                    <a class="btn btn-primary mb-3" >Accept</a>
+                    @endif
+                    @if(isset($surverying))
+                    <a class="btn btn-primary mb-3" >Surveying</a>
+                    @endif
+                    @if(isset($surveryed))
+                    <a class="btn btn-primary mb-3" >Surveyed</a>
+                    @endif
+                    @if(isset($hold))
+                    <a class="btn btn-primary mb-3" >Hold</a>
+                    @endif
+                    @if(isset($credit))
+                    <a class="btn btn-primary mb-3" >Credit</a>
+                    @endif
+                    @if(isset($contract_requested))
+                    <a class="btn btn-primary mb-3" >Contract Requested</a>
+                    @endif
+                    @if(isset($loaned))
+                    <a class="btn btn-primary mb-3" >Loaned</a>
+                    @endif
+                    @if(isset($claim_requested))
+                    <a class="btn btn-primary mb-3" >Claim Requested</a>
+                    @endif
+                    @if(isset($claimed))
+                    <a class="btn btn-primary mb-3" >Claimed</a>
+                    @endif
+                    @if(isset($voucherlist))
+                    <a class="btn btn-primary mb-3" >Voucher Lists</a>
+                    @endif
+                    @if(isset($finished))
+                    <a class="btn btn-primary mb-3" >finished</a>
+                    @endif
+                    </div>
+                </div> -->
+                </div>
+            </div>
+        @endif
         <div class="col-sm-12">
           <div class="card">
             <div class="card-header pb-0">
@@ -40,7 +113,7 @@
                               $count = count($$stats_tasks);
                               $total_count = count($tasks);
                           @endphp
-                          <h4 class="total-num counter">{{$count}}</h4>
+                          <h4 class="total-num">{{$count}}</h4>
                         </div>
                         <div class="col-7">
                           <div class="text-md-end">
@@ -60,7 +133,7 @@
                   </div>
                 </div>
                 @endforeach
-                
+
               </div>
             </div>
           </div>

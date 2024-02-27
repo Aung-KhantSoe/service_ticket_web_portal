@@ -40,7 +40,7 @@
                 </div>
             @endif
             <div class="contact-form card-body">
-              <form class="card theme-form" action="{{ route('tasks.store')}}" method="post">
+              <form class="card theme-form" action="{{ route('tasks.store')}}" method="post" enctype="multipart/form-data">
                 <div class="form-icon"><i class="icofont icofont-envelope-open"></i></div>
                   @csrf
                   <input type="hidden" name="status" value="order">
@@ -68,18 +68,27 @@
                       <div class="col-sm-6 col-md-6">
                           <div class="mb-3">
                               <label class="form-label">Product</label>
-                              <select class="form-select" name="product_id">
-                                  <option value="1" selected>Website</option>
-                                  <option value="2" >Moodle</option>
+                              <select class="form-select" name="product_id" onchange="productonchange(event)" required>
+                                <option value="">Choose one</option>
+                                @foreach ($products as $product)
+                                    <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                @endforeach
                               </select>
                           </div>
                       </div>
                       <div class="col-sm-6 col-md-6">
                           <div class="mb-3">
                               <label class="form-label">FAQ</label>
-                              <select class="form-select" name="faq_id">
-                                  <option value="1" selected>Can't login.</option>
-                                  <option value="2" >My Site is slow.</option>
+                              <select class="form-select" name="faq_id" required>
+                                @foreach ($products as $product)
+                                    @php
+                                        $faqs = $product->faqs;
+                                    @endphp
+                                        <option value="">Choose one</option>
+                                    @foreach ($faqs as $faq)
+                                        <option class="{{ $faq->product_id }} faqs" value="{{ $faq->id }}">{{ $faq->question }}</option>
+                                    @endforeach
+                                @endforeach
                               </select>
                           </div>
                       </div>
@@ -96,18 +105,18 @@
                       <div class="col-sm-6 col-md-6">
                         <div class="mb-3">
                           <label class="form-label">Warranty Start Date</label>
-                          <input class="datepicker-here form-control digits" type="text" data-language="en" name="service_warranty_start_date">
+                          <input class="datepicker-here form-control digits" type="text" data-language="en" name="service_warranty_start_date" required>
                         </div>
                       </div>
                       <div class="col-sm-6 col-md-6">
                         <div class="mb-3">
                           <label class="form-label">Warranty End Date</label>
-                          <input class="datepicker-here form-control digits" type="text" data-language="en" name="service_warranty_end_date">
+                          <input class="datepicker-here form-control digits" type="text" data-language="en" name="service_warranty_end_date" required>
                         </div>
                       </div>
                   </div>
-                    
-                    
+
+
                     <div class="col-sm-6 col-md-6">
                       <div class="mb-3">
                         <label class="form-label">Description</label>
@@ -122,6 +131,7 @@
                           <div class="mb-3">
                               <label class="form-label">Assign Developer</label>
                               <select class="form-select" name="dev_id">
+                                  <option value="" >Choose one</option>
                                   @foreach ($developers as $developer)
                                   <option value="{{$developer->id}}" >{{$developer->name}}</option>
                                   @endforeach
@@ -138,37 +148,37 @@
                     <div class="col-sm-6 col-md-6">
                         <div class="mb-3">
                           <label class="form-label">Photo 1</label>
-                          <input class="datepicker-here form-control digits" type="file" name="photo_1" required>
+                          <input class="form-control" type="file" name="photo_1" required>
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-6">
                         <div class="mb-3">
                           <label class="form-label">Photo 2</label>
-                          <input class="datepicker-here form-control digits" type="file" name="photo_2" required>
+                          <input class="form-control" type="file" name="photo_2" >
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-6">
                         <div class="mb-3">
                           <label class="form-label">Photo 3</label>
-                          <input class="datepicker-here form-control digits" type="file" name="photo_3">
+                          <input class="form-control" type="file" name="photo_3">
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-6">
                         <div class="mb-3">
                           <label class="form-label">Photo 4</label>
-                          <input class="datepicker-here form-control digits" type="file" name="photo_4">
+                          <input class="form-control" type="file" name="photo_4">
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-6">
                         <div class="mb-3">
                           <label class="form-label">Photo 5</label>
-                          <input class="datepicker-here form-control digits" type="file" name="photo_5">
+                          <input class="form-control" type="file" name="photo_5">
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-6">
                         <div class="mb-3">
                           <label class="form-label">Receipt</label>
-                          <input class="datepicker-here form-control digits" type="file" name="receipt" required>
+                          <input class="form-control" type="file" name="receipt" required>
                         </div>
                     </div>
                   </div>

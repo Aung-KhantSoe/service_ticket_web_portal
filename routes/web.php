@@ -19,9 +19,9 @@ Auth::routes();
 Route::middleware([BackOfficeAuth::class])->group(function () {
 
     Route::get('/', 'HomeController@index')->name('home');
+    Route::post('/toggledarkmode', 'HomeController@toggledarkmode')->name('toggledarkmode');
     Route::resource('users', 'UserController');
     Route::resource('tasks', 'TaskController');
     Route::resource('products', 'ProductController');
-    Route::resource('prices', 'PriceController');
     Route::resource('faqs', 'FaqController');
 });

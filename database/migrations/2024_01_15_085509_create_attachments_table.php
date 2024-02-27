@@ -15,7 +15,9 @@ class CreateAttachmentsTable extends Migration
     {
         Schema::create('attachments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('task_id');
+            $table->foreignId('task_id')
+                    ->references('id')->on('tasks')
+                    ->onDelete('cascade');
             $table->text('receipt')->nullable();
             $table->text('photo_1')->nullable();
             $table->text('photo_2')->nullable();

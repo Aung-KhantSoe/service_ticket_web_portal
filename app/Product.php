@@ -11,6 +11,10 @@ class Product extends Model
     {
         return $this->hasMany('App\Task');
     }
+    public function faqs()
+    {
+        return $this->hasMany('App\Faq');
+    }
     public function price()
     {
         return $this->hasOne('App\Price');
